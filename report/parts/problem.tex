@@ -1,0 +1,43 @@
+\chapter{Problem Definition / Clarification}
+\section{Problem Definition / Clarification}
+
+\subsection{Problem Description}
+The objective of this project is to develop an automated system capable of converting a single image of a woven product (specifically water hyacinth weaving) into detailed, step-by-step weaving instructions.
+
+\begin{itemize}
+    \item \textbf{Input:} A single RGB image (JPG/PNG) of a water hyacinth weaving pattern.
+    \item \textbf{Output:}
+    \begin{enumerate}
+        \item \textit{Weaving Structure Representation (Weaving Matrix $M$):} A matrix constructed based on cells with predefined rules.
+        \item \textit{Ordered Weaving Instruction Sequence ($S$):} A textual sequence of instructions guiding the user through the weaving process.
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Scope}
+The project focuses on close-up images of complete woven surfaces featuring regular, repetitive patterns. The aim is to generate a valid and internally consistent weaving procedure that reproduces the observed over/under topology. Recovering the original or unique artisan procedure used to create the specific sample is out of scope.
+
+\subsection{Assumptions}
+\begin{itemize}
+    \item Strands are visually separable with sufficient contrast for reliable tracing.
+    \item Over/under relationships at intersections are locally observable and unambiguous.
+    \item Images are captured from an approximately top-down viewpoint with limited perspective distortion.
+    \item All required weaving strands are available in advance, with quantities determined by the weaving matrix dimensions and sufficient lengths to execute the generated procedure.
+\end{itemize}
+
+\subsection{Constraints}
+\begin{itemize}
+    \item The system processes a single RGB image per instance; video or multi-view inputs are not supported.
+    \item Each image contains a single homogeneous weaving pattern.
+    \item The pipeline is modular and interpretable, without end-to-end image-to-instruction learning (avoiding "black box" behavior).
+    \item Image resolution must ensure at least $32 \times 32$ pixels per strand intersection.
+    \item The weaving surface is approximately planar, with limited perspective distortion and no severe occlusion.
+    \item The image is analyzed using local patches centered at candidate intersections, with moderate intersection density to allow unambiguous local processing.
+\end{itemize}
+
+\subsection{Requirements}
+\begin{itemize}
+    \item \textbf{R1 (Structural Fidelity):} The generated Weaving Matrix ($M$) must seamlessly map to the physical topology of the input image.
+    \item \textbf{R2 (Usability):} The system must generate valid, human-readable weaving instructions.
+\end{itemize}
+
+\newpage
