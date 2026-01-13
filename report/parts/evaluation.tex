@@ -1,0 +1,86 @@
+\chapter{Evaluation}
+\section{Evaluation}
+
+To ensure the efficacy and practicality of the solution, the evaluation is conducted based on two main pillars: Perception Verification and Usability Verification.
+
+\subsection{Evaluation Metrics}
+
+\renewcommand{\arraystretch}{1.5} % Tăng khoảng cách giữa các hàng trong bảng
+\begin{table}[H]
+\centering
+\caption{Evaluation Metrics and Targets}
+\begin{tabular}{|l|l|l|c|l|}
+\hline
+\textbf{Req. Ref} & \textbf{Verification Goal} & \textbf{Metric} & \textbf{Value} & \textbf{Formula} \\ \hline
+R1 & Intersection Accuracy & F1-Score (@ IoU 0.5) & 90\% & $F1 = 2 \times \frac{Pre \times Rec}{Pre + Rec}$ \\ \hline
+R1 & Relation Logic & Binary Accuracy & 90\% & $Acc = \frac{TP + TN}{Samples}$ \\ \hline
+R2 & Human Usability & Human Success Rate & 85\% & $\frac{1}{M}\sum_{i=1}^{M}\mathbb{I}(Art_i = GT)$ \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Explanation of Formulas:}
+\begin{itemize}
+    \item \textbf{F1-Score:} 
+    \[
+    F1 = 2 \times \frac{Pre \times Rec}{Pre + Rec}
+    \]
+    where:
+    \begin{itemize}
+        \item $Pre$ (Precision): The proportion of correctly predicted positive intersections out of all predicted positive intersections.
+        \item $Rec$ (Recall): The proportion of correctly predicted positive intersections out of all actual positive intersections.
+    \end{itemize}
+    This metric balances precision and recall, ensuring both are optimized.
+
+    \item \textbf{Binary Accuracy:}
+    \[
+    Acc = \frac{TP + TN}{Samples}
+    \]
+    where:
+    \begin{itemize}
+        \item $TP$ (True Positives): Correctly predicted positive relations.
+        \item $TN$ (True Negatives): Correctly predicted negative relations.
+        \item $Samples$: Total number of samples.
+    \end{itemize}
+    This metric measures the proportion of correct predictions (both positive and negative).
+
+    \item \textbf{Human Success Rate:}
+    \[
+    \frac{1}{M}\sum_{i=1}^{M}\mathbb{I}(Art_i = GT)
+    \]
+    where:
+    \begin{itemize}
+        \item $M$: Total number of participants in the user study.
+        \item $\mathbb{I}(Art_i = GT)$: Indicator function that equals 1 if the artifact produced by participant $i$ matches the ground truth ($GT$), and 0 otherwise.
+    \end{itemize}
+    This metric evaluates the usability of the generated instructions by measuring how often participants successfully reproduce the target pattern.
+\end{itemize}
+
+\subsection{Data \& Verification Protocol}
+
+\textbf{1. Perception Verification (Verifies R1):}
+\begin{itemize}
+    \item \textbf{Data Source:} Real-world Test Set ($N=200$ self-collected images, with manual Ground Truth).
+    \item \textbf{Usage:} This dataset is used strictly to calculate the Intersection F1-Score and Relation Accuracy, ensuring the system correctly identifies strand positions and their topological relationships.
+\end{itemize}
+
+\textbf{2. Usability Verification (Verifies R2):}
+\begin{itemize}
+    \item \textbf{Protocol:} A User Study involving $N=20$ participants with basic weaving skills.
+    \item \textbf{Procedure:} Participants are asked to reproduce artifacts using only the reference image and the generated instruction text.
+    \item \textbf{Usage:} Determines the \textit{Human Success Rate} based on the structural correctness of the artifacts produced by the participants compared to the target pattern.
+\end{itemize}
+
+\subsection{Error Attribution \& Mitigation (Addressing User vs. System Error)}
+\textit{To address the potential validity threat where failure is caused by participant execution error rather than instruction quality:}
+
+\begin{enumerate}
+    \item \textbf{Pre-qualification:} Participants are screened to ensure they possess basic manual dexterity and weaving fundamentals to minimize purely motor-skill failures.
+    \item \textbf{Post-Failure Analysis:} In cases where the final artifact is incorrect ($Art_i \neq GT$), a root cause analysis interview is conducted:
+    \begin{itemize}
+        \item \textbf{Type A (System Error):} If the participant followed the instruction but the instruction was logically wrong or ambiguous. $\rightarrow$ \textit{Counted as System Failure.}
+        \item \textbf{Type B (Execution Error):} If the participant admits to understanding the instruction correctly but made a manual slip (e.g., missed a strand, clumsy handling). $\rightarrow$ \textit{Excluded from System Failure rate or noted as Noise.}
+    \end{itemize}
+    \item \textbf{Instruction Validation:} Before the user study, the generated instructions are cross-verified against the Ground Truth topology. If the generated text is mathematically correct but the user fails, it suggests a need for better \textit{Natural Language Generation} (clarity improvement) rather than a logic failure.
+\end{enumerate}
+
+\newpage
