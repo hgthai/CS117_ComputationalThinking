@@ -22,7 +22,7 @@
 %\setlength{\headheight}{2cm}
 \RequirePackage{url}
 \RequirePackage[hidelinks]{hyperref}%Paquet pour insérer légendes dans des sous-figures comme Figure 1a, 1b
-\RequirePackage[left=2.5cm,right=2.5cm,top=2cm,bottom=3.5cm]{geometry} %Configuration de la page
+\RequirePackage[left=2.5cm,right=2.5cm,top=3.5cm,bottom=3.5cm]{geometry} %Configuration de la page
 
 
 %-------------------- Informations sur le rapport ----------------------
@@ -36,7 +36,7 @@
 \newcommand{\fairemarges}{
 \makenomenclature
 \pagestyle{fancy}
-\fancyheadoffset{1cm}
+%\fancyheadoffset{1cm}
 \setlength{\headheight}{2cm}
 \lhead{
         \includegraphics[scale=0.1]{./image/logo.png}
@@ -47,7 +47,7 @@
 \lfoot{\UE}
 \fancypagestyle{plain}{
     \fancyhf{}
-    \fancyheadoffset{1cm}
+    %\fancyheadoffset{1cm}
     \lhead{\includegraphics[scale=0.08]{./image/logo.png}}
     \rhead{\nouppercase{\leftmark}}
     \rfoot{\thepage}
