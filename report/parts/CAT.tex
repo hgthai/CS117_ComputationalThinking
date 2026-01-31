@@ -1,96 +1,104 @@
-\section*{2) Vận dụng các kỹ thuật Computational/AI Thinking (CAT)}
+\chapter{THE PROCESS OF APPLYING COMPUTATIONAL THINKING}
 
-Quá trình xây dựng giải pháp từ bài toán thực tế được thực hiện tuần tự qua các bước áp dụng tư duy máy tính (Computational Thinking) nhằm chuyển đổi từ dữ liệu thô sang hướng dẫn có cấu trúc, cụ thể như sau:
+The process of constructing a solution from a real-world problem is sequentially executed through steps of applying Computational Thinking \cite{wing2006computational} to transform raw data into structured instructions, specifically as follows:
 
-\subsection*{Step 1: Abstraction (Trừu tượng hóa) trên Bài toán thực tế}
+\section{Step 1: Abstraction on the Real-World Problem}
 \begin{itemize}
-    \item \textbf{Input thực tế:} Một hình ảnh chụp bề mặt đan lục bình (Water Hyacinth Weaving) chứa nhiều chi tiết nhiễu (màu sắc, ánh sáng, background, độ cong vật lý).
-    \item \textbf{Quá trình:} Loại bỏ các chi tiết không cần thiết (màu sắc sợi, khiếm khuyết vật liệu nhỏ), chỉ tập trung vào cấu trúc topo học của các mối đan. Bài toán được mô hình hóa thành việc tìm kiếm hàm ánh xạ $F$.
-    \item \textbf{Kết quả:} Bài toán thực tế trở thành bài toán tính toán \textbf{Root Problem: Image-to-Instruction Synthesis}.
+    \item \textbf{Real-World Input:} An image of a Water Hyacinth Weaving surface containing various noise details (color, lighting, background, physical curvature).
+    \item \textbf{Process:} Eliminate unnecessary details (fiber color, minor material defects), focusing solely on the topological structure of the weaving knots. The problem is modeled as finding a mapping function $F$.
+    \item \textbf{Outcome:} The real-world problem becomes a computational problem, the \textbf{Root Problem: Image-to-Instruction Synthesis}.
     \begin{itemize}
-        \item \textit{Input:} Ảnh RGB đơn $I \in \mathbb{R}^{H \times W \times 3}$.
-        \item \textit{Output 1:} Biểu diễn cấu trúc đan (Weaving Structure Representation) dưới dạng Ma trận $M$ (Weaving Matrix).
-        \item \textit{Output 2:} Chuỗi hướng dẫn (Ordered Instruction Sequence) $S$.
-        \item \textit{Ràng buộc:} $M$ phải thỏa mãn tính đúng đắn về cấu trúc (Structural Fidelity - R1) và $S$ phải đảm bảo tính khả dụng cho con người (Usability - R2).
+        \item \textit{Input:} Single RGB image $I \in \mathbb{R}^{H \times W \times 3}$.
+        \item \textit{Output 1:} Weaving Structure Representation in the form of a Matrix $M$ (Weaving Matrix).
+        \item \textit{Output 2:} Ordered Instruction Sequence $S$.
+        \item \textit{Constraint:} $M$ must satisfy Structural Fidelity (R1), and $S$ must ensure Human Usability (R2).
     \end{itemize}
 \end{itemize}
 
-\subsection*{Step 2: Decomposition (Phân rã) trên Root Problem}
+\section{Step 2: Decomposition on the Root Problem}
 \begin{itemize}
-    \item \textbf{Quá trình:} Nhận thấy việc ánh xạ trực tiếp từ $I \to S$ (End-to-End) là quá phức tạp và thiếu tính giải thích (interpretable). Bài toán được phân rã dựa trên chức năng cốt lõi: ``Nhìn/Hiểu ảnh'' và ``Suy luận quy trình''.
-    \item \textbf{Kết quả:} Root Problem được phân rã thành 2 module độc lập nối tiếp nhau:
+    \item \textbf{Process:} Recognizing that a direct mapping from $I \to S$ (End-to-End) is overly complex and lacks interpretability. The problem is decomposed based on core functions: ``Visual Perception'' and ``Procedural Reasoning''.
+    \item \textbf{Outcome:} The Root Problem is decomposed into two independent, sequential modules:
     \begin{itemize}
-        \item \textbf{Module 1: Perception (X1) -} Chuyển đổi ảnh sang dữ liệu cấu trúc.\\
-        \textbullet\ \textit{Input:}  Ảnh $I$.\\
-        \textbullet\ \textit{Output:} Ma trận $M$.
-        \item \textbf{Module 2: Reasoning (X2) -} Lập kế hoạch từ dữ liệu cấu trúc.\\
-        \textbullet\ \textit{Input:} Ma trận $M$.\\
-        \textbullet\ \textit{Output:} Hướng dẫn $S$.
+        \item \textbf{Module 1: Perception (X1) -} Transform the image into structured data.\\
+        \textbullet\ \textit{Input:}  Image $I$.\\
+        \textbullet\ \textit{Output:} Matrix $M$.
+        \item \textbf{Module 2: Reasoning (X2) -} Plan from structured data.\\
+        \textbullet\ \textit{Input:} Matrix $M$.\\
+        \textbullet\ \textit{Output:} Instructions $S$.
     \end{itemize}
 \end{itemize}
 
-\subsection*{Step 3: Decomposition (Phân rã) trên Module 1 (Perception)}
+\section{Step 3: Decomposition on Module 1 (Perception)}
 \begin{itemize}
-    \item \textbf{Quá trình:} Để tạo ra ma trận $M$, hệ thống cần biết vị trí các nút giao và mối quan hệ trên/dưới tại đó. Module 1 tiếp tục được chia nhỏ thành các tác vụ xử lý thị giác máy tính cụ thể.
-    \item \textbf{Kết quả:} Module 1 được phân rã thành 3 bài toán con nối tiếp:
+    \item \textbf{Process:} To generate matrix $M$, the system needs to know the locations of intersection nodes and the over/under relationships at those points. Module 1 is further subdivided into specific computer vision tasks.
+    \item \textbf{Outcome:} Module 1 is decomposed into 3 sequential sub-problems:
     \begin{itemize}
-        \item \textbf{Sub-problem 1.1 (Local Feature Extraction):} Xác định tọa độ các điểm giao nhau.\\
-        \textbullet\ \textit{Input:} Ảnh RGB gốc $I$.\\
-        \textbullet\ \textit{Output:} Tập hợp tọa độ các nút giao $N = \{(x_i, y_i)\}$.
+        \item \textbf{Sub-problem 1.1 (Local Feature Extraction):} Determine the coordinates of intersection points.\\
+        \textbullet\ \textit{Input:} Original RGB Image $I$.\\
+        \textbullet\ \textit{Output:} Set of intersection node coordinates $N = \{(x_i, y_i)\}$.
         
-        \item \textbf{Sub-problem 1.2 (Local Relation Classification):} Xác định trạng thái đan tại từng điểm giao.\\
-        \textbullet\ \textit{Input:} Tọa độ nút $N$ và các vùng ảnh cục bộ (local patches) quanh $N$ trích xuất từ $I$.\\
-        \textbullet\ \textit{Output:} Tập hợp các nút đã gán nhãn quan hệ $N' = \{(x_i, y_i, r_i)\}$ (với $r_i$ là nhãn over/under).
+        \item \textbf{Sub-problem 1.2 (Local Relation Classification):} Determine the weaving state at each intersection point.\\
+        \textbullet\ \textit{Input:} Node coordinates $N$ and local image patches around $N$ extracted from $I$.\\
+        \textbullet\ \textit{Output:} Set of labeled nodes with relationships $N' = \{(x_i, y_i, r_i)\}$ (where $r_i$ is the over/under label).
         
-        \item \textbf{Sub-problem 1.3 (Topology Encoding):} Mã hóa các quan hệ cục bộ thành ma trận toàn cục.\\
-        \textbullet\ \textit{Input:} Tập hợp nút đã gán nhãn $N'$.\\
-        \textbullet\ \textit{Output:} Ma trận cấu trúc đan $M$ (Weaving Matrix).
+        \item \textbf{Sub-problem 1.3 (Topology Encoding):} Encode local relationships into a global matrix.\\
+        \textbullet\ \textit{Input:} Set of labeled nodes $N'$.\\
+        \textbullet\ \textit{Output:} Weaving structure matrix $M$ (Weaving Matrix).
     \end{itemize}
 \end{itemize}
 
-\subsection*{Step 4: Pattern Recognition - Matching (Nhận diện mẫu) với Sub-problem 1.1 \& 1.2}
+\section{Step 4: Pattern Recognition - Matching with Sub-problems 1.1 \& 1.2}
 \begin{itemize}
-    \item \textbf{Quá trình:}
+    \item \textbf{Process:}
     \begin{itemize}
-        \item Đối với Sub-problem 1.1: Nhận diện đây là bài toán tìm điểm đặc trưng (keypoints) trên ảnh.
-        \item Đối với Sub-problem 1.2: Nhận diện đây là bài toán phân loại hình ảnh dựa trên các đặc điểm cục bộ (visual cues).
+        \item For Sub-problem 1.1: Recognize this as a problem of finding keypoints on an image.
+        \item For Sub-problem 1.2: Recognize this as an image classification problem based on local visual cues.
     \end{itemize}
-    \item \textbf{Kết quả:}
+    \item \textbf{Outcome:}
     \begin{itemize}
-        \item Sub-problem 1.1 khớp với bài toán \textbf{Keypoint Detection / Object Detection}.\\
-        $\rightarrow$ \textit{Giải pháp:} Sử dụng mạng CNN hoặc ViT-based để trích xuất đặc trưng.
-        \item Sub-problem 1.2 khớp với bài toán \textbf{Image Classification}.\\
-        $\rightarrow$ \textit{Giải pháp:} Cắt các local patches quanh điểm giao và đưa qua mô hình phân loại.
+        \item Sub-problem 1.1 matches the \textbf{Keypoint Detection / Object Detection} problem.\\
+        $\rightarrow$ \textit{Solution:} Use CNN or ViT-based networks to extract features.
+        \item Sub-problem 1.2 matches the \textbf{Image Classification} problem.\\
+        $\rightarrow$ \textit{Solution:} Crop local patches around intersection points and pass them through a classification model.
     \end{itemize}
 \end{itemize}
 
-\subsection*{Step 5: Decomposition (Phân rã) trên Module 2 (Reasoning)}
+\section{Step 5: Decomposition on Module 2 (Reasoning)}
 \begin{itemize}
-    \item \textbf{Quá trình:} Từ ma trận $M$, cần tạo ra hướng dẫn $S$. Việc này đòi hỏi phải tìm ra một đường đi hợp lý (logic flow) trước khi chuyển đổi thành ngôn ngữ tự nhiên.
-    \item \textbf{Kết quả:} Module 2 được phân rã thành:
+    \item \textbf{Process:} From matrix $M$, instructions $S$ need to be generated. This requires finding a logical flow before converting to natural language.
+    \item \textbf{Outcome:} Module 2 is decomposed into:
     \begin{itemize}
-        \item \textbf{Sub-problem 2.1 (Procedure Planning):} Tìm thứ tự thực hiện các mối đan.\\
-        \textbullet\ \textit{Input:} Ma trận cấu trúc đan $M$.\\
-        \textbullet\ \textit{Output:} Kế hoạch thực hiện (Execution Plan) $P = \{p_1, p_2, \dots, p_n\}$.
+        \item \textbf{Sub-problem 2.1 (Procedure Planning):} Determine the execution order of weaving steps.\\
+        \textbullet\ \textit{Input:} Weaving structure matrix $M$.\\
+        \textbullet\ \textit{Output:} Execution Plan $P = \{p_1, p_2, \dots, p_n\}$.
         
-        \item \textbf{Sub-problem 2.2 (Generate Instruction):} Chuyển đổi kế hoạch $P$ thành ngôn ngữ tự nhiên.\\
-        \textbullet\ \textit{Input:} Kế hoạch thực hiện $P$.\\
-        \textbullet\ \textit{Output:} Chuỗi văn bản hướng dẫn $S$ (Ordered Textual Instructions).
+        \item \textbf{Sub-problem 2.2 (Generate Instruction):} Convert plan $P$ into natural language.\\
+        \textbullet\ \textit{Input:} Execution Plan $P$.\\
+        \textbullet\ \textit{Output:} Ordered Textual Instructions sequence $S$.
     \end{itemize}
 \end{itemize}
 
-\subsection*{Step 6: Pattern Recognition - Matching (Nhận diện mẫu) với Sub-problem 2.1 \& 2.2}
+\section{Step 6: Pattern Recognition - Matching with Sub-problems 2.1 \& 2.2}
 \begin{itemize}
-    \item \textbf{Quá trình:}
+    \item \textbf{Process:}
     \begin{itemize}
-        \item Đối với Sub-problem 2.1: Ma trận $M$ thực chất là một biểu diễn đồ thị (Graph) hoặc lưới (Grid). Việc tìm thứ tự đan tương ứng với việc duyệt qua các nút.
-        \item Đối với Sub-problem 2.2: Việc chuyển đổi dữ liệu cấu trúc sang văn bản hướng dẫn tuân theo các quy tắc ngữ pháp cố định.
+        \item For Sub-problem 2.1: Matrix $M$ is essentially a Graph or Grid representation. Finding the weaving order corresponds to traversing the nodes.
+        \item For Sub-problem 2.2: Converting structured data to instruction text follows fixed grammatical rules.
     \end{itemize}
-    \item \textbf{Kết quả:}
+    \item \textbf{Outcome:}
     \begin{itemize}
-        \item Sub-problem 2.1 khớp với bài toán \textbf{Graph Traversal (Duyệt đồ thị)}.\\
-        $\rightarrow$ \textit{Giải pháp:} Sử dụng thuật toán \textbf{DFS (Depth-First Search)} kết hợp Cycle Detection để xác định đường đi hợp lệ.
-        \item Sub-problem 2.2 khớp với bài toán \textbf{Rule-based Text Generation}.\\
-        $\rightarrow$ \textit{Giải pháp:} Sử dụng phương pháp \textbf{Template-based} (điền vào mẫu câu) để đảm bảo tính chính xác và dễ hiểu.
+        \item Sub-problem 2.1 matches the \textbf{Graph Traversal} problem.\\
+        $\rightarrow$ \textit{Solution:} Use the \textbf{DFS (Depth-First Search)} algorithm combined with Cycle Detection to determine valid paths.
+        \item Sub-problem 2.2 matches the \textbf{Rule-based Text Generation} problem.\\
+        $\rightarrow$ \textit{Solution:} Use the \textbf{Template-based} method (filling in sentence templates) to ensure accuracy and comprehensibility.
     \end{itemize}
 \end{itemize}
+
+\section{Breakdown Tree}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image/tree.png}
+    \caption{Breakdown Tree of the Project}
+    \label{fig:tree}
+\end{figure}

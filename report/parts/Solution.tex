@@ -1,0 +1,115 @@
+\chapter{Solution}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image/pipeline.png}
+    \caption{Pipeline of the proposed solution}
+    \label{fig:pipeline}
+\end{figure}
+
+\section{Module 1: Perception (X1) - Structure-Aware Weaving Graph Generation}
+
+\textbf{Input:} A single RGB image $I$ depicting a water hyacinth woven surface.
+
+\textbf{Output:} Weaving Structure Representation (Weaving Matrix $M$).
+
+The perception module decomposes into three interconnected sub-processes, each addressing a specific aspect of structural understanding.
+
+\subsection{Sub-problem 1.1: Local Feature Extraction}
+
+The initial stage employs sophisticated computer vision techniques to identify and localize intersection points within the woven surface. Given the repetitive, grid-like nature of water hyacinth weaving patterns, we leverage:
+
+\begin{itemize}
+    \item \textbf{Convolutional Neural Networks (CNNs)} \cite{he2016deep, lecun2015deep} for robust feature detection capable of handling variations in lighting, texture, and perspective distortion.
+    \item \textbf{Vision Transformer (ViT)-based keypoint detection} \cite{dosovitskiy2021image, vaswani2017attention} to capture long-range spatial dependencies across the woven surface.
+    \item \textbf{Patch-based perception algorithms} that analyze local neighborhoods around candidate intersection points, enabling fine-grained discrimination between true structural intersections and visual artifacts.
+\end{itemize}
+
+This sub-process generates a set of intersection node coordinates:
+\begin{equation}
+    N = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}
+\end{equation}
+representing the foundational structural elements of the weaving pattern.
+
+\subsection{Sub-problem 1.2: Local Relation Classification}
+
+Once intersection points are identified, the system must determine the spatial relationships between adjacent nodes—specifically, which strands connect to form the continuous weave structure. This classification problem is addressed through:
+
+\begin{itemize}
+    \item \textbf{Graph-based reasoning algorithms} \cite{kipf2017semi} that evaluate the geometric consistency of potential connections.
+    \item \textbf{Local visual cue analysis} \cite{cao2017realtime} examining strand orientation, color continuity, and texture patterns to infer connectivity.
+    \item \textbf{Classification networks} \cite{redmon2016you} trained on annotated weaving samples to distinguish valid structural relationships from spurious visual alignments.
+\end{itemize}
+
+The output is a set of labeled edges:
+\begin{equation}
+    E = \{(n_i, n_j, r_{ij})\}
+\end{equation}
+where $r_{ij}$ encodes the relationship type (horizontal, vertical, or diagonal connection) between nodes $n_i$ and $n_j$.
+
+\subsection{Sub-problem 1.3: Topology Encoding}
+
+The final perception stage synthesizes node coordinates and relational information into a unified \textbf{Weaving Matrix} ($M$)—a structured representation that encodes the complete topological configuration of the woven surface. The encoding process involves:
+
+\begin{itemize}
+    \item \textbf{Deterministic encoding} of local relations into a normalized matrix format where each cell represents an intersection point and its associated over-under configuration.
+    \item \textbf{Spatial regularization} to ensure geometric consistency across the entire weaving surface.
+    \item \textbf{Topological validation} to verify that the encoded structure corresponds to a physically realizable weaving pattern.
+\end{itemize}
+
+The Weaving Matrix $M$ serves as a formal bridge between perceptual analysis and procedural reasoning, abstracting away visual complexity while preserving all structural information necessary for instruction generation.
+
+\section{Module 2: Reasoning (X2) - Instruction Synthesis}
+
+\textbf{Input:} Weaving Matrix ($M$).
+
+\textbf{Output:} Ordered Weaving Instruction Sequence ($S$).
+
+The reasoning module transforms the structural representation into executable instructions through a two-stage process that mirrors the procedural logic employed by traditional Vietnamese artisans.
+
+\subsection{Sub-problem 2.1: Procedure Planning}
+
+This sub-process analyzes the Weaving Matrix to determine an optimal execution strategy, addressing:
+
+\begin{itemize}
+    \item \textbf{Traversal path selection:} Determining the order in which individual cells should be addressed during instruction generation.
+    \item \textbf{Cycle detection:} Identifying repetitive structural motifs that can be described efficiently through iterative instructions rather than exhaustive enumeration.
+    \item \textbf{Base strand selection:} Identifying the foundational strands that must be established before subsequent weaving operations can proceed—reflecting the traditional Vietnamese practice of establishing a stable base structure (\textit{móng} or foundation) before building upward.
+\end{itemize}
+
+The algorithm employs techniques inspired by Vietnamese weaving pedagogy, including:
+
+\begin{itemize}
+    \item \textbf{Matrix-encoded topology analysis} using Depth-First Search (DFS) to establish procedural dependencies.
+    \item \textbf{Pattern recognition algorithms} to identify repeating cycles (e.g., ``over-two-under-two'' patterns characteristic of many Vietnamese basket weaves).
+    \item \textbf{Constraint satisfaction} to ensure that the proposed execution sequence respects physical realizability constraints (e.g., a strand cannot be woven through a position until supporting strands are in place).
+\end{itemize}
+
+The output is an ordered execution plan:
+\begin{equation}
+    P = \{p_1, p_2, \ldots, p_m\}
+\end{equation}
+representing the sequence of high-level weaving operations.
+
+\subsection{Sub-problem 2.2: Generate Instruction}
+
+The final stage translates the execution plan into natural language instructions comprehensible to human weavers. This involves:
+
+\begin{itemize}
+    \item \textbf{Template-based text generation} for standard weaving operations, utilizing domain-specific vocabulary consistent with Vietnamese craft terminology.
+    \item \textbf{Rule-based synthesis} for complex or ambiguous configurations where template matching is insufficient.
+    \item \textbf{Contextual instruction elaboration} that provides additional guidance for steps that might be challenging for novice practitioners.
+\end{itemize}
+
+The system generates instructions in both Vietnamese and English, incorporating culturally appropriate phrasing. For example, rather than abstract geometric descriptions, instructions reference tangible craft actions:
+
+\begin{itemize}
+    \item \textit{``Luồn sợi ngang qua hai sợi dọc''} (Thread the horizontal strand over two vertical strands)
+    \item \textit{``Tạo móng bằng cách đặt bốn sợi song song''} (Create the base by placing four parallel strands)
+\end{itemize}
+
+The output is an Ordered Weaving Instruction Sequence:
+\begin{equation}
+    S = \{s_1, s_2, \ldots, s_k\}
+\end{equation}
+where each instruction $s_i$ corresponds to a specific, actionable weaving operation.

@@ -1,14 +1,4 @@
-% Thêm dòng này LÊN ĐẦU TIÊN để nạp option cho xcolor trước khi class được gọi
-\PassOptionsToPackage{table}{xcolor} 
-
 \documentclass{template}
-<<<<<<< HEAD
-
-% --- CÁC GÓI ĐÃ CÓ TRONG TEMPLATE (ĐỂ THAM KHẢO, KHÔNG CẦN KHAI BÁO LẠI) ---
-% geometry, fontenc, babel, amsmath, float, graphicx, hyperref, url, xcolor...
-
-% --- CÁC GÓI BỔ SUNG CHO BÁO CÁO CỦA BẠN ---
-=======
 \usepackage[table]{xcolor}
 \usepackage[T5]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -18,56 +8,68 @@
 \usepackage{lipsum}
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
 \title{}
->>>>>>> 26686f86fe95d75738ec5f8dd57d5c86a3f5f16d
 \usepackage{listings}
 \usepackage{multirow}
+\usepackage{float}
 \usepackage{adjustbox}
+\usepackage{graphicx}
 \usepackage{colortbl}
+\usepackage{hyperref}
+\usepackage{url}
 \usepackage{xurl}
+\usepackage[utf8]{inputenc}
 \usepackage{cite}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{longtable}
-\usepackage{amssymb, amsfonts} 
-%\usepackage{enumitem}
-\usepackage{lipsum}
+\renewcommand{\bibname}{References}
 
-\definecolor{bg}{rgb}{0.95,0.95,0.95}
-
-% Thiết lập hiển thị code (nếu cần)
 \lstset{
-  backgroundcolor=\color{bg},
-  basicstyle=\small\ttfamily,
-  breaklines=true,
-  frame=single
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!40!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=tb,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{gray!10},
+    tabsize=4,
+    captionpos=b,
+    columns=fullflexible
 }
-
-\title{} % Tiêu đề (có thể điền sau)
 
 % --- BẮT ĐẦU TÀI LIỆU ---
 \begin{document}
 
 \titre{IMAGE-TO-INSTRUCTIONS \\FOR WATER HYACINTH WEAVING}
-\sujet{CS117.Q11.KHTN - Tư duy tính toán}
+\sujet{CS117.Q11.KHTN - Computational Thinking}
 
-\enseignant{TS. Ngô Đức Thành}
-\eleves{Nguyễn Văn Hồng Thái - 23521418\\
-Nguyễn Văn Minh - 23521418 \\
-Hoàng Đức Dũng - 23520328\\
-Phan Nhật Tân - 23521405\\
-Nguyễn Đình Thiên Quang - 23521285}
+\enseignant{PhD. Ngo Duc Thanh}
+\eleves{Nguyen Van Hong Thai - 23521418\\
+Nguyen Van Minh - 23521418 \\
+Hoang Duc Dung - 23520328\\
+Phan Nhat Tan - 23521405\\
+Nguyen Dinh Thien Quang - 23521285}
 
 \fairemarges
 \fairepagedegarde
 \tabledematieres
 
 % Import các chapter
-<<<<<<< HEAD
-\input{parts/CAT.tex}
-=======
+
 \input{parts/problem.tex}
+\input{parts/CAT.tex}
+\input{parts/Solution.tex}
 \input{parts/evaluation.tex}
 \input{parts/ethical.tex}
-\input{parts/Solution.tex}
->>>>>>> 26686f86fe95d75738ec5f8dd57d5c86a3f5f16d
+\input{parts/conclusion.tex}
+
+\bibliographystyle{ieeetr}
+\bibliography{reference}
+
 \end{document}
